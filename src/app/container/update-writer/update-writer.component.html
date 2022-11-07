@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Update Post</h1>
+<div mat-dialog-content>
+    <form [formGroup]="updatePostForm" novalidate>
+         <mat-form-field class="example-full-width">
+            <input matInput placeholder="Name" (keypress)="onlyAlphanumeric($event)" formControlName="name" required>
+            <mat-error *ngIf="f.name.hasError('required')">
+                Name is required
+            </mat-error>
+            <mat-error *ngIf="f.name.hasError('maxlength')">
+                Title must be maximum of 50 characters.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input matInput [email]="true" placeholder="Email" formControlName="email" required>
+            <mat-error *ngIf="f.email.hasError('required')">
+                Content is required
+            </mat-error>
+            <mat-error *ngIf="f.email.hasError('maxlength')">
+                Content must be maximum of 250 characters.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Created</mat-label>
+            <input matInput [matDatepicker]="pickerCreated" formControlName="created_at">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="pickerCreated"></mat-datepicker-toggle>
+            <mat-datepicker #pickerCreated></mat-datepicker>
+
+            <mat-error *ngIf="f.created_at.hasError('required')">
+                Created is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Updated</mat-label>
+            <input matInput [matDatepicker]="pickerUpdated" formControlName="updated_at">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="pickerUpdated"></mat-datepicker-toggle>
+            <mat-datepicker #pickerUpdated></mat-datepicker>
+
+            <mat-error *ngIf="f.updated_at.hasError('required')">
+                Updated is required
+            </mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-raised-button (click)="updatePost(updatePostForm.value)" [disabled]="updatePostForm.invalid" color="primary" cdkFocusInitial>UPDATE</button>
+    <button mat-button (click)="onNoClick()">CANCEL</button>
+</div>
